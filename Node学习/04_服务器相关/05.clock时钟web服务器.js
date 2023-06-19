@@ -24,7 +24,7 @@ server.on('request', (req, res) => {
         //     /index.html
         //     /index.css
         //     /index.js
-        fpath = path.join(__dirname, '/clock', url)
+        fpath = path.join(__dirname, '/clock', url ?? "")
     }
     // 使用text/html 不带换行了
     // res.setHeader('Content-Type', 'text/html;charset=utf-8');
