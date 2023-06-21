@@ -15,10 +15,10 @@ export default {
   components: {
     // PannelC: PannelComponent
     PannelComponent
- 
- 
- 
- 、
+
+
+
+
   }
 }
 </script>
