@@ -1,7 +1,6 @@
+
 <template>
-  <div>
-    <h1>test</h1>
-  </div>
+  <div>play index</div>
 </template>
 
 <script>
