@@ -31,11 +31,9 @@ export default {
     methods: {
         fn(val) {
             this.keyword = val
-            let res = this.getResultFn()
-            console.log(res);
         },
         async getResultFn() {
-            return await searchResultAPI({
+            await searchResultAPI({
                 keywords: this.keyword,
                 limit: 20
             })

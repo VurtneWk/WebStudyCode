@@ -4,8 +4,8 @@
         <router-view></router-view>
         <van-tabbar v-model="active">
             <!-- 是否在跳转时替换当前页面历史  -->
-            <van-tabbar-item replace to="/layout/home" icon="home-o">首页</van-tabbar-item>
-            <van-tabbar-item replace to="/layout/search" icon="search">搜索</van-tabbar-item>
+            <van-tabbar-item replace to="/layout/home" icon="home-o">标签1</van-tabbar-item>
+            <van-tabbar-item replace to="/layout/search" icon="search">标签2</van-tabbar-item>
         </van-tabbar>
 
     </div>

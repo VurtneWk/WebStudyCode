@@ -4,8 +4,7 @@
         <div class="search_wrap">
             <p class="hot_title">热门搜素</p>
             <div class="hot_name_wrap">
-                <span class="hot_item" v-for="(obj, index) in hotSearchList" :key="index" @click="fn(obj.first)">
-                    {{ obj.first }}</span>
+                <span class="hot_item">海底</span>
             </div>
         </div>
     </div>
@@ -13,33 +12,18 @@
 
 <script>
 
-import { hotSearchAPI, searchResultAPI } from '@/api'
+import { hotSearchAPI } from '@/api'
 
 export default {
     data() {
         return {
             keyword: "",
-            hotSearchList: [],
-            searchResultList: [],
+            hotSearchList: []
         }
     },
     async created() {
         const res = await hotSearchAPI()
-        this.hotSearchList = res.data.result.hots
         console.log(res);
-    },
-    methods: {
-        fn(val) {
-            this.keyword = val
-            let res = this.getResultFn()
-            console.log(res);
-        },
-        async getResultFn() {
-            return await searchResultAPI({
-                keywords: this.keyword,
-                limit: 20
-            })
-        }
     }
 
 }

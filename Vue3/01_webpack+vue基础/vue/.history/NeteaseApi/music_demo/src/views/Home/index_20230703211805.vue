@@ -8,8 +8,7 @@
             </van-col>
         </van-row>
         <p class="title">最新音乐</p>
-        <van-cell v-for="obj in newSongList" :key="obj.id" :title="obj.name"
-            :label="obj.song.artists[0].name + ' - ' + obj.name" center>
+        <van-cell v-for="obj in newSongList" :key="obj.id" :title="obj.name" :label="obj.song.artists[0].name" center>
             <!-- 使用 right-icon 插槽来自定义右侧图标 -->
             <template #right->
                 <van-icon name="play-circle-o" class="play-circle-o" size="0.7rem" />

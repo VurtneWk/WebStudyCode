@@ -13,14 +13,13 @@
 
 <script>
 
-import { hotSearchAPI, searchResultAPI } from '@/api'
+import { hotSearchAPI } from '@/api'
 
 export default {
     data() {
         return {
             keyword: "",
-            hotSearchList: [],
-            searchResultList: [],
+            hotSearchList: []
         }
     },
     async created() {
@@ -31,14 +30,6 @@ export default {
     methods: {
         fn(val) {
             this.keyword = val
-            let res = this.getResultFn()
-            console.log(res);
-        },
-        async getResultFn() {
-            return await searchResultAPI({
-                keywords: this.keyword,
-                limit: 20
-            })
         }
     }
 

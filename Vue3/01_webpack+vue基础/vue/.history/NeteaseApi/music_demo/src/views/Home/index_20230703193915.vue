@@ -7,41 +7,32 @@
                 <p class="song_name">{{ obj.name }}</p>
             </van-col>
         </van-row>
-        <p class="title">最新音乐</p>
-        <van-cell v-for="obj in newSongList" :key="obj.id" :title="obj.name"
-            :label="obj.song.artists[0].name + ' - ' + obj.name" center>
-            <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-            <template #right->
-                <van-icon name="play-circle-o" class="play-circle-o" size="0.7rem" />
-            </template>
-        </van-cell>
+        <p>a</p>
+        <van-cell-group>
+            <van-cell title="单元格" value="内容" />
+            <van-cell title="单元格" value="内容" label="描述信息" />
+        </van-cell-group>
     </div>
 </template>
 
 <script>
 
-import { recommentMusicAPI, newSongAPI } from '@/api';
+import { recommentMusicAPI } from '@/api';
 
 
 export default {
     data() {
         return {
-            musicList: [],
-            newSongList: [],
+            musicList: []
         }
     },
     async created() {
         const res = await recommentMusicAPI({
             limit: 6,
         })
-        // console.log(res);
+        console.log(res);
         this.musicList = res.data.result
-
-        const resNewSong = await newSongAPI({
-            limit: 20
-        })
-        console.log(resNewSong);
-        this.newSongList = resNewSong.data.result
+        console.log(this.musicList);
     },
 
 
@@ -73,9 +64,5 @@ export default {
     /** 显示的行数 **/
     overflow: hidden;
     /** 隐藏超出的内容 **/
-}
-
-.van-cell {
-    border-bottom: 1px solid lightgray;
 }
 </style>

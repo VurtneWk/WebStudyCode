@@ -4,7 +4,7 @@ import "@/mobile/flexible" //适配
 import "@/styles/reset.css" //初始化样式
 
 import router from '@/router/index.js'
-import { Tabbar, TabbarItem, NavBar, Row, Col, Image as VanImage, Cell, Icon, Search } from 'vant'
+import { Tabbar, TabbarItem, NavBar, Row, Col, Image as VanImage, Cell, Icon } from 'vant'
 
 const app = createApp(App)
 
@@ -28,5 +28,4 @@ app.use(Col)
 app.use(VanImage)
 app.use(Cell)
 app.use(Icon)
-app.use(Search)
 app.mount('#app')
