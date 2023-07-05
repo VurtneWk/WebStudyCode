@@ -12,8 +12,12 @@
             <p class="hot_title">最佳匹配</p>
             <!--  -->
             <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-                <SongItem v-for="obj in searchResultList" :key="obj.id" :name='obj.name' :author="obj.ar[0].name"
-                    :id="obj.id"></SongItem>
+                <van-cell center v-for="obj in searchResultList" :key="obj.al.id" :title='obj.name'
+                    :label="obj.ar[0].name + ' - ' + obj.name">
+                    <template #right-icon>
+                        <van-icon name="play-circle-o" size="0.6rem" />
+                    </template>
+                </van-cell>
             </van-list>
         </div>
     </div>
@@ -22,7 +26,6 @@
 <script>
 
 import { hotSearchAPI, searchResultAPI } from '@/api'
-import SongItem from '@/components/SongItem.vue'
 
 export default {
     data() {
@@ -35,9 +38,6 @@ export default {
             page: 1
         }
     },
-    components: {
-        SongItem
-    },
     async created() {
         const res = await hotSearchAPI()
         this.hotSearchList = res.data.result.hots
@@ -45,7 +45,6 @@ export default {
     },
     methods: {
         async fn(val) {
-            this.page = 1
             this.finished = false
             this.keyword = val
             let res = await this.getResultFn()
@@ -62,24 +61,20 @@ export default {
             })
         },
         async inputFn() {
-            if (this.timer) clearTimeout(this.timer)
-            this.timer = setTimeout(async () => {
-                console.log("inputFn");
-                this.page = 1
-                this.finished = false
-                if (this.keyword.length === 0) {
-                    this.searchResultList = []
-                    return
-                }
-                const res = await this.getResultFn()
-                console.log(res);
-                if (res.data.result.songs === undefined) {
-                    this.searchResultList = []
-                    return
-                }
-                this.searchResultList = res.data.result.songs
-                this.loading = false
-            }, 800)
+            this.finished = false
+            if (this.keyword.length === 0) {
+                this.searchResultList = []
+                return
+            }
+            const res = await this.getRes
+            ultFn()
+            console.log(res);
+            if (res.data.result.songs === undefined) {
+                this.searchResultList = []
+                return
+            }
+            this.searchResultList = res.data.result.songs
+            this.loading = false
         },
         async onLoad() {
             this.page++;

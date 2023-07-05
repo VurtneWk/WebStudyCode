@@ -10,10 +10,13 @@
         </div>
         <div class="search_wrap" v-else>
             <p class="hot_title">最佳匹配</p>
-            <!--  -->
-            <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-                <SongItem v-for="obj in searchResultList" :key="obj.id" :name='obj.name' :author="obj.ar[0].name"
-                    :id="obj.id"></SongItem>
+            <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" offset="0">
+                <van-cell center v-for="obj in searchResultList" :key="obj.al.id" :title='obj.name'
+                    :label="obj.ar[0].name + ' - ' + obj.name">
+                    <template #right-icon>
+                        <van-icon name="play-circle-o" size="0.6rem" />
+                    </template>
+                </van-cell>
             </van-list>
         </div>
     </div>
@@ -22,7 +25,6 @@
 <script>
 
 import { hotSearchAPI, searchResultAPI } from '@/api'
-import SongItem from '@/components/SongItem.vue'
 
 export default {
     data() {
@@ -35,9 +37,6 @@ export default {
             page: 1
         }
     },
-    components: {
-        SongItem
-    },
     async created() {
         const res = await hotSearchAPI()
         this.hotSearchList = res.data.result.hots
@@ -45,13 +44,12 @@ export default {
     },
     methods: {
         async fn(val) {
-            this.page = 1
             this.finished = false
             this.keyword = val
             let res = await this.getResultFn()
             this.searchResultList = res.data.result.songs
             console.log(res);
-            // this.loading = false
+            this.loading = false
 
         },
         async getResultFn() {
@@ -62,26 +60,23 @@ export default {
             })
         },
         async inputFn() {
-            if (this.timer) clearTimeout(this.timer)
-            this.timer = setTimeout(async () => {
-                console.log("inputFn");
-                this.page = 1
-                this.finished = false
-                if (this.keyword.length === 0) {
-                    this.searchResultList = []
-                    return
-                }
-                const res = await this.getResultFn()
-                console.log(res);
-                if (res.data.result.songs === undefined) {
-                    this.searchResultList = []
-                    return
-                }
-                this.searchResultList = res.data.result.songs
-                this.loading = false
-            }, 800)
+            this.finished = false
+            if (this.keyword.length === 0) {
+                this.searchResultList = []
+                return
+            }
+            const res = await this.getResultFn()
+            console.log(res);
+            if (res.data.result.songs === undefined) {
+                this.searchResultList = []
+                return
+            }
+            this.searchResultList = res.data.result.songs
+            this.loading = false
         },
         async onLoad() {
+            console.log("onLoad start");
+            console.log(this.loading);
             this.page++;
             const res = await this.getResultFn();
             if (res.data.result.songs === undefined) {
@@ -89,6 +84,8 @@ export default {
                 this.loading = false
                 return
             }
+            console.log(this.loading);
+            console.log("onLoad end");
             this.searchResultList = [...this.searchResultList, ...res.data.result.songs];
             this.loading = false; // 数据加载完毕-保证下一次还能触发onload
         }

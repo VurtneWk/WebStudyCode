@@ -12,6 +12,12 @@
             <p class="hot_title">最佳匹配</p>
             <!--  -->
             <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+                <!-- <van-cell center v-for="obj in searchResultList" :key="obj.al.id" :title='obj.name'
+                    :label="obj.ar[0].name + ' - ' + obj.name">
+                    <template #right-icon>
+                        <van-icon name="play-circle-o" size="0.6rem" />
+                    </template>
+                </van-cell> -->
                 <SongItem v-for="obj in searchResultList" :key="obj.id" :name='obj.name' :author="obj.ar[0].name"
                     :id="obj.id"></SongItem>
             </van-list>
